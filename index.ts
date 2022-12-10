@@ -2,11 +2,10 @@ import axios from 'axios';
 import { IFinding } from './IFinding';
 import { Context, APIGatewayProxyResult, APIGatewayEvent } from 'aws-lambda';
 
-export async function handler(
+export const handler = async (
   event: APIGatewayEvent,
   ctx: Context
-): Promise<APIGatewayProxyResult> {
-  ctx;
+): Promise<APIGatewayProxyResult> => {
   // Return early if body or variables are null
   if (!event.body) {
     return {
@@ -36,21 +35,17 @@ export async function handler(
   // Parse the finding from the event
   const finding: IFinding = JSON.parse(event.body);
 
-  // Formatting the Finding to html_notes
-  const resources = `
-  <ul>
-    ${finding.resources.map(resource => `<li>${resource}</li>`)}
-  </ul>`;
+  // Formatting the Finding to html_notes. The new lines and spaces affect the formatting of the task details
+  const resources = `<ul>${finding.resources.map(
+    resource => `<li>${resource}</li>`
+  )}</ul>`;
 
-  const htmlNotes = `
-  <body>
-    <h1>Finding Details</h1>
-    <strong>Account ID</strong>: ${finding.accountId}
-    <strong>Finding Type</strong>: ${finding.findingType}
-    <strong>Link</strong>: <a href="${finding.link}" target="_blank"> ${finding.title}</a>
-    <h3>Resources</h3>
-    ${resources}
-  </body>`;
+  const htmlNotes = `<body><h1>Finding Details</h1><strong>Finding Status</strong>: ${finding.status}
+<strong>Account ID</strong>: ${finding.accountId}
+<strong>Finding Type</strong>: ${finding.findingType}
+<strong>Link</strong>: <a href="${finding.link}" target="_blank"> ${finding.title}</a>
+<h1>Resources</h1>${resources}
+</body>`;
 
   // Asana payload
   const payload = {
@@ -62,7 +57,13 @@ export async function handler(
     },
   };
   try {
-    const res = await axios.post(process.env.ASANA_URL, payload);
+    const res = await axios.post(process.env.ASANA_URL, payload, {
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+        Authorization: `Bearer ${process.env.ASANA_TOKEN}`,
+      },
+    });
     return {
       statusCode: res.status,
       body: JSON.stringify({
@@ -75,7 +76,8 @@ export async function handler(
         return {
           statusCode: error.response.status,
           body: JSON.stringify({
-            message: error.response.data.message,
+            message: error.response.data,
+            payload: payload,
           }),
         };
       } else {
@@ -95,4 +97,4 @@ export async function handler(
       }),
     };
   }
-}
+};
