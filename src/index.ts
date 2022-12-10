@@ -2,7 +2,7 @@ import axios from 'axios';
 import { IFinding } from './IFinding';
 import { Context, APIGatewayProxyResult, APIGatewayEvent } from 'aws-lambda';
 
-export async function lambdaHandler(
+export async function handler(
   event: APIGatewayEvent,
   ctx: Context
 ): Promise<APIGatewayProxyResult> {
