@@ -33,29 +33,29 @@ export async function lambdaHandler(
       }),
     };
   }
+  // Parse the finding from the event
   const finding: IFinding = JSON.parse(event.body);
-  //Formatting the Finding to html_notes
-  const labels = `
-  <ul>
-    ${finding.labels.map(label => `<li>${label}</li>`)}
-  </ul>`;
+
+  // Formatting the Finding to html_notes
   const resources = `
   <ul>
     ${finding.resources.map(resource => `<li>${resource}</li>`)}
   </ul>`;
+
   const htmlNotes = `
   <body>
-  <h1>Finding Details</h1>
-  <strong>Account ID</strong>: ${finding.accountId}
-  <strong>Finding Type</strong>: ${finding.findingType}
-  <strong>Link</strong>: <a href="${finding.link}" target="_blank"> ${finding.title}</a>
-  <h3>Resources</h3>
-  ${resources}
+    <h1>Finding Details</h1>
+    <strong>Account ID</strong>: ${finding.accountId}
+    <strong>Finding Type</strong>: ${finding.findingType}
+    <strong>Link</strong>: <a href="${finding.link}" target="_blank"> ${finding.title}</a>
+    <h3>Resources</h3>
+    ${resources}
   </body>`;
 
+  // Asana payload
   const payload = {
     data: {
-      name: `${finding.title} | ${finding.severity} | ${finding.accountName} | `,
+      name: `${finding.title} | ${finding.severity} | ${finding.accountName}`,
       projects: [process.env.ASANA_PROJECT_ID],
       workspace: process.env.ASANA_WORKSPACE_ID,
       html_notes: htmlNotes,

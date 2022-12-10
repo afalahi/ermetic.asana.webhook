@@ -9,13 +9,12 @@
     /* Modules */
     "module": "CommonJS" /* Specify what module code is generated. */,
     "moduleResolution": "Node",
-    // "rootDir": "./src" /* Specify the root folder within your source files. */,
-
+    "isolatedModules": true,
     /* Emit */
     "declaration": true /* Generate .d.ts files from TypeScript and JavaScript files in your project. */,
     "declarationMap": true /* Create sourcemaps for d.ts files. */,
     "outDir": "./dist" /* Specify an output folder for all emitted files. */,
-    "preserveConstEnums": true,
+    "preserveConstEnums": true /* Disable erasing const enum declarations in generated code.*/,
     "sourceMap": true,
 
     /* Interop Constraints */
@@ -31,7 +30,7 @@
     /* Completeness */
     "skipLibCheck": true /* Skip type checking all .d.ts files. */
   },
-  "files": ["src/main.ts"],
+  "files": ["src/index.ts"],
   "include": ["package-lock.json", "src/**/*.ts", "package.json"],
   "exclude": ["node_modules", "dist", "**/*.test.ts"]
 }

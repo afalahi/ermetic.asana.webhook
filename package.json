@@ -1,13 +1,13 @@
 {
   "name": "ermetic.asana.webhook",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "0.0.1",
+  "description": "Send Findings to Asana from Ermetic",
+  "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc"
   },
   "keywords": [],
-  "author": "",
+  "author": "ali.falahi@ermetic.com",
   "license": "ISC",
   "dependencies": {
     "aws-lambda": "^1.0.7",
