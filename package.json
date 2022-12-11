@@ -11,6 +11,7 @@
   "author": "ali.falahi@ermetic.com",
   "license": "ISC",
   "dependencies": {
+    "@aws-sdk/client-ssm": "^3.226.0",
     "aws-lambda": "^1.0.7",
     "axios": "^1.2.1"
   },
