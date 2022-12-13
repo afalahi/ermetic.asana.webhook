@@ -32,7 +32,7 @@ this will create a `dist` directory with transpiled code and zips the content.
 
 - Create a lambda execution role per aws documentation
 - Create a new SSM securestring ssm parameter named ASANA_TOKEN and have your token as it's value
-- Run the following command to create the lambda with the created role
+- Run the following command from the `dist` folder to create the lambda with the created role
 
 ```console
 aws lambda create-function --function-name Ermetic-Asana-Webhook --runtime "nodejs18.x" --role arn:aws:iam::<AWS_ACCOUNT>:role/<ROLE_NAME> --zip-file "fileb://ermetic.asana.webhook.zip" --handler index.handler
