@@ -39,6 +39,10 @@ aws lambda create-function --function-name Ermetic-Asana-Webhook --runtime "node
 ```
 
 - Add an API gateway trigger to the function
+- Create an SSM parameter for the access token named `ASANA_TOKEN`
 - Add the following environment variables to your functions `ASANA_URL`, `ASANA_PROJECT_ID`, `ASANA_WORKSPACE_ID` and update them with their respective values
   - [How to get Asana Access Token](https://developers.asana.com/docs/authenticating)
+  - Asana API url: `https://app.asana.com/api/1.0`
+  - To get your workspace ID navigate [here](https://app.asana.com/api/1.0/workspaces), but first ensure you're already logged in to ASANA
+  - Your project ID can be obtained from the url when you're in an Asana's project, right after the `https://app.asana.com/0/<PROJECT_ID>/list`
 - Test your function from PostMan, the lambda built-in test will not yield any results since it's expecting an API Gateway event
