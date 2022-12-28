@@ -37,7 +37,7 @@ export const handler = async (
   const finding: IFinding = JSON.parse(event.body);
 
   //instantiate SSM client and command to get the token from the parameter store
-  const ssmClient = new SSMClient({ region: 'us-west-2' });
+  const ssmClient = new SSMClient({ region: process.env.AWS_REGION });
   const ssmCommand = new GetParameterCommand({
     Name: 'ASANA_TOKEN',
     WithDecryption: true,
